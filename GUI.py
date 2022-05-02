@@ -1,24 +1,44 @@
-import tkinter as tk
+import sys
+
+# 1. Import `QApplication` and all the required widgets
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialogButtonBox
+from PyQt5.QtWidgets import QFormLayout
+from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QHBoxLayout
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-window = tk.Tk()
-window.title("Lorenzo Del Forno Dynamic Stock Trading Simulator")
+class GUI(QDialog):
+    """Dialog."""
+    def __init__(self, parent=None):
+        """Initializer."""
+        super().__init__(parent)
+        self.setWindowTitle('Lorenzo Del Forno Dynamic Stock Trading Simulator')
+        
+        mainFrame = QHBoxLayout()
+        mainFrame.setStyleSheet("background:white")
 
-mainFrame = tk.Frame(master= window, width=1360, height=750, bg="white")
-mainFrame.pack(fill="both")
+        leftSide = QVBoxLayout()
+        leftSide.setStyleSheet("background:blue")
 
-leftSide = tk.Frame(master= mainFrame, width=260, height=750, bg="blue")
-leftSide.pack(fill="y", side="left")
+        stockGeneral = QVBoxLayout()
+        stockGeneral.setStyleSheet("background:yellow")
 
-controlPanel = tk.Frame(master= leftSide, width=260, height=100, bg="white")
-controlPanel.pack(fill="y", side="top")
+        stockAdvanced = QVBoxLayout()
+        stockGeneral.setStyleSheet("background:red")
 
-stockGeneral = tk.Frame(master= mainFrame, width=700, bg="yellow")
-stockGeneral.pack(fill="y", side="left")
+        mainFrame.setLayout(leftSide)
+        mainFrame.setLayout(stockGeneral)
+        mainFrame.setLayout(stockAdvanced)
 
-stockAdvanced = tk.Frame(master= mainFrame, width=300, bg="red")
-stockAdvanced.pack(fill="y", side="left")
+        
+        self.setLayout(mainFramw)
 
-
-window.mainloop()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    dlg = GUI()
+    dlg.show()
+    sys.exit(app.exec_())
