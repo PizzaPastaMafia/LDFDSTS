@@ -13,7 +13,13 @@ hist = tsla.history(period='5y')
 x=hist.index
 y = hist['Close']
 
-fig = plt.plot_sheet(x, y)
+fig, ax = plt.subplots(1)
+ax.plot(x, y)
 fig.show()
+
+dataPlot = FigureCanvasTkAgg(fig, master=window)
+
+dataPlot.draw()
+dataPlot.get_tk_widget().grid(row=0, column=0)
 
 window.mainloop()
