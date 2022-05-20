@@ -1,11 +1,10 @@
-import tkinter as tk
+#!/usr/bin/env python
+
 import matplotlib.pyplot as plt
 import yfinance as yf
+import yahoo_fin as y_f
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
-window = tk.Tk()
-window.rowconfigure(0, minsize=500)    # minimal height
-window.columnconfigure(0, minsize=700) # minimal width
+import sys
 
 class Stock:
     def __init__(self, ticker, p):
@@ -31,16 +30,14 @@ class Stock:
         ax.plot(self.getX(), self.getY())
         ax.set_title(self.getTitle())
         fig.show()
+        fig.savefig('stock_plot.png')
         
         return fig
 
-    def showGraph(self):
-        dataPlot = FigureCanvasTkAgg(self.plotGraph(), master=window)
-        dataPlot.draw()
-        dataPlot.get_tk_widget().grid(row=0, column=0)
+#    def showGraph(self):
+#        dataPlot = FigureCanvasTkAgg(self.plotGraph(), master=window)
+#        dataPlot.draw()
+#        dataPlot.get_tk_widget().grid(row=0, column=0)
 
-stock = Stock("fb", "1y")
-stock.showGraph()
-
-
-window.mainloop()
+stock = Stock(sys.argv[1], sys.argv[2])
+stock.plotGraph()
